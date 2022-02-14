@@ -82,8 +82,11 @@ const getDefaultModal = (title, bottomText) => {
 	return backdrop;
 };
 
+const getCustomModal = (title, bottomText, options) => {};
+
 const showModal = (titleText, bottomText, options) => {
 	if (options) {
+		const modal = getCustomModal(titleText, bottomText, options);
 	} else if (titleText && bottomText) {
 		const modal = getDefaultModal(titleText, bottomText);
 		document.body.append(modal);
