@@ -27,7 +27,8 @@
 	border-radius: var(--uni-radius);
 	background-color: white;
 	color: black;
-	min-width: 300px;
+	min-width: 200px;
+	animation: popup-show-animation 0.3s 0.1s backwards;
 }
 
 .popup-buttons {
@@ -51,6 +52,15 @@
 
 button.popup-button-default {
 	border: 1px solid black;
+}
+
+@keyframes popup-show-animation {
+	from {
+		transform: scale(0.1);
+	}
+	to {
+		transform: scale(1);
+	}
 }
 
 @keyframes backdrop-show-animation {
