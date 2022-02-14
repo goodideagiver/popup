@@ -10,7 +10,10 @@ const modalClass = {
 };
 
 const closeModal = element => {
-	element.closest('.popupjs-backdrop').remove();
+	element.closest('.popupjs-backdrop').classList.add('pretty-hide');
+	setTimeout(() => {
+		element.closest('.popupjs-backdrop').remove();
+	}, 300);
 };
 
 const createBackdrop = () => {
@@ -73,7 +76,7 @@ const getDefaultModal = (title, bottomText) => {
 	const button = getButton('Ok');
 	const btnSection = getButtonSection();
 	const modal = document.createElement('div');
-	modal.classList.add('modal-middle');
+	modal.classList.add('popup');
 	btnSection.append(button);
 	modal.append(getUpperSection(title, bottomText));
 	modal.append(btnSection);

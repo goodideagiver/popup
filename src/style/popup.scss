@@ -12,9 +12,10 @@
 	height: 100%;
 	top: 0;
 	left: 0;
+	animation: backdrop-show-animation 0.3s;
 }
 
-.modal-middle {
+.popup {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
@@ -47,4 +48,21 @@
 
 button.popup-button-default {
 	border: 1px solid black;
+}
+
+@keyframes backdrop-show-animation {
+	from {
+		visibility: hidden;
+		opacity: 0;
+	}
+	to {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+.pretty-hide {
+	transition: 0.3s;
+	visibility: hidden;
+	opacity: 0;
 }
