@@ -4,9 +4,28 @@ const createBackdrop = () => {
 	return backdrop;
 };
 
-const getButton = (innerHTML, callback) => {
+const closeModal = element => {
+	element.closest('.popupjs-backdrop').remove();
+};
+
+const getButton = (innerHTML, callback, closeOnClick = false) => {
 	const button = document.createElement('button');
 	button.innerHTML = innerHTML;
-	button.addEventListener('click', callback);
+	if (!callback) {
+		button.addEventListener('click', () => closeModal(element));
+	} else {
+		button.addEventListener('click', callback);
+	}
 	return button;
+};
+
+const generateButtons = objArr => {
+	return objArr.map(buttonOption => {
+		return getButton(buttonOption);
+	});
+};
+
+const showModal = (titleText, bottomText, options) => {
+	if (options) {
+	}
 };
