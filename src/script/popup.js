@@ -76,7 +76,7 @@ const getDefaultModal = (title, bottomText) => {
 	const button = getButton('Ok');
 	const btnSection = getButtonSection();
 	const modal = document.createElement('div');
-	modal.classList.add('popup');
+	modal.classList.add('popup', modalClass.default);
 	btnSection.append(button);
 	modal.append(getUpperSection(title, bottomText));
 	modal.append(btnSection);

@@ -31,6 +31,19 @@
 	animation: popup-show-animation 0.3s 0.1s backwards;
 }
 
+.modal-align-middle {
+	max-width: 600px;
+	align-self: auto;
+}
+
+.modal-align-bottom {
+	align-self: flex-end;
+}
+
+.modal-align-top {
+	align-self: flex-start;
+}
+
 .popup-buttons {
 	display: flex;
 	gap: 5px;
@@ -56,10 +69,12 @@ button.popup-button-default {
 
 @keyframes popup-show-animation {
 	from {
-		transform: scale(0.1);
+		transform: scale(0.8);
+		opacity: 0;
 	}
 	to {
 		transform: scale(1);
+		opacity: 1;
 	}
 }
 
