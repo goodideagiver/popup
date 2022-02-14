@@ -1,3 +1,7 @@
+:root {
+	--uni-radius: 2px;
+}
+
 .popupjs-backdrop {
 	background-color: rgba(0, 0, 0, 0.424);
 	display: flex;
@@ -11,9 +15,36 @@
 }
 
 .modal-middle {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	padding: 10px;
 	margin: 20px;
-	border-radius: 8px;
+	border-radius: var(--uni-radius);
 	background-color: white;
 	color: black;
+	min-width: 300px;
+}
+
+.popup-buttons {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	justify-content: flex-end;
+	button {
+		border: 0;
+		background-color: transparent;
+		font-size: 1rem;
+		padding: 5px 10px;
+		border-radius: var(--uni-radius);
+		cursor: pointer;
+		transition: opacity 0.1s;
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+}
+
+button.popup-button-default {
+	border: 1px solid black;
 }
