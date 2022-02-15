@@ -7,6 +7,19 @@ const modalClass = {
 	default: 'modal-align-middle',
 	bottom: 'modal-align-bottom',
 	top: 'modal-align-top',
+	wide: 'modal-wide',
+};
+
+const examplePopup = {
+	buttons: [
+		['No', () => console.log('clicked'), true],
+		['Yes', () => console.log('clicked')],
+	],
+	cssClass: [modalClass.bottom, modalClass.wide],
+	backdrop: {
+		onClickClose: true,
+		blockClicks: true,
+	},
 };
 
 const closeModal = element => {
