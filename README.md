@@ -1,2 +1,2 @@
-# popup
+# popup.js
 My first javascript library
