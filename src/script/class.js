@@ -87,4 +87,4 @@ const component2 = new Component(
 
 console.log(component);
 console.log(component2);
-document.body.append(component, component2);
+document.querySelector('#app').append(component, component2);
