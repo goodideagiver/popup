@@ -24,17 +24,19 @@ class Component {
 			this.element.innerHTML = this.text;
 		}
 		if (cssClasses) {
-			this.cssClass = [...cssClasses];
-			this.addClassesToElement(this.element, this.cssClass);
+			this.cssClass = typeof cssClasses !== Array ? cssClasses : [...cssClasses];
+			this.addClassesToElement(this.element, [this.cssClass]);
 		}
 		if (attributes) {
-			this.attributes = [...attributes];
-			this.addAttributesToElement(this.element, this.attributes);
+			this.attributes = typeof attributes !== Array ? attributes : [...attributes];
+			this.addAttributesToElement(this.element, [this.attributes]);
 		}
 	}
 
 	addClassesToElement(element, classArr) {
-		classArr.forEach(cssClass => {});
+		classArr.forEach(cssClass => {
+			element.classList.add(cssClass);
+		});
 	}
 
 	addAttributesToElement(element, attributesArr) {
@@ -73,7 +75,7 @@ class Popup extends Config {
 	render() {}
 }
 
-const component = new Component('button', 'ok', ['foo'], [new Attribute('id', 'bar')])
+const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'))
 	.element;
 
 console.log(component);
