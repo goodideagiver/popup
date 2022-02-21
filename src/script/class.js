@@ -9,10 +9,10 @@ class Attribute {
 }
 class Component {
 	constructor(type, text, cssClasses, attributes) {
-		this.optionsHandler(type, text, cssClasses, attributes);
+		this.initValues(type, text, cssClasses, attributes);
 	}
 
-	optionsHandler(type, text, cssClasses, attributes) {
+	initValues(type, text, cssClasses, attributes) {
 		if (!type || type === '') {
 			throw 'cannot create element without type';
 		} else {
@@ -72,3 +72,8 @@ class Popup extends Config {
 
 	render() {}
 }
+
+const component = new Component('button', 'ok', ['foo'], [new Attribute('id', 'bar')])
+	.element;
+
+console.log(component);
