@@ -1,5 +1,6 @@
 class Style {}
 
+class Config {}
 class Attribute {
 	constructor(id, value) {
 		this.attrId = id;
@@ -7,7 +8,44 @@ class Attribute {
 	}
 }
 class Component {
-	constructor(text, cssClass, [id, value]) {}
+	constructor(type, text, cssClasses, attributes) {
+		this.optionsHandler(type, text, cssClasses, attributes);
+	}
+
+	optionsHandler(type, text, cssClasses, attributes) {
+		if (!type || type === '') {
+			throw 'cannot create element without type';
+		} else {
+			this.type = type;
+			this.element = this.getTypedElement();
+		}
+		if (text) {
+			this.text = text;
+			this.element.innerHTML = this.text;
+		}
+		if (cssClasses) {
+			this.cssClass = [...cssClasses];
+			this.addClassesToElement(this.element, this.cssClass);
+		}
+		if (attributes) {
+			this.attributes = [...attributes];
+			this.addAttributesToElement(this.element, this.attributes);
+		}
+	}
+
+	addClassesToElement(element, classArr) {
+		classArr.forEach(cssClass => {});
+	}
+
+	addAttributesToElement(element, attributesArr) {
+		attributesArr.forEach(atributePair => {
+			element.setAttribute(atributePair.attrId, atributePair.value);
+		});
+	}
+
+	getTypedElement() {
+		return document.createElement(this.type);
+	}
 }
 class Animation {}
 class Backdrop extends Component {
@@ -26,7 +64,7 @@ class Button extends Component {
 	getButton() {}
 }
 class Position {}
-class Popup {
+class Popup extends Config {
 	constructor(title = 'Default title', subText = false, options) {
 		//{buttons,backdropOptions,position,animation,[css classes]}} - options
 		this.render();
