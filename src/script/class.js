@@ -25,7 +25,6 @@ class Button extends Component {
 
 	getButton() {}
 }
-class Popup {}
 class Position {}
 class Popup {
 	constructor(title = 'Default title', subText = false, options) {
