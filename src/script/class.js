@@ -24,12 +24,12 @@ class Component {
 			this.element.innerHTML = this.text;
 		}
 		if (cssClasses) {
-			this.cssClass = typeof cssClasses !== Array ? cssClasses : [...cssClasses];
+			this.cssClass = Array.isArray(cssClasses) ? [...cssClasses] : cssClasses;
 			this.addClassesToElement(this.element, [this.cssClass]);
 		}
 		if (attributes) {
-			this.attributes = typeof attributes !== Array ? attributes : [...attributes];
-			this.addAttributesToElement(this.element, [this.attributes]);
+			this.attributes = Array.isArray(attributes) ? [...attributes] : [attributes];
+			this.addAttributesToElement(this.element, this.attributes);
 		}
 	}
 
@@ -78,4 +78,13 @@ class Popup extends Config {
 const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'))
 	.element;
 
+const component2 = new Component(
+	'button',
+	'ok',
+	['foo', 'bar-class'],
+	[new Attribute('id', 'siema'), new Attribute('disabled', 'false')]
+).element;
+
 console.log(component);
+console.log(component2);
+document.body.append(component, component2);
