@@ -24,11 +24,11 @@ class Component {
 			this.element.innerHTML = this.text;
 		}
 		if (cssClasses) {
-			this.cssClass = Array.isArray(cssClasses) ? [...cssClasses] : [cssClasses];
+			this.cssClass = Array.isArray(cssClasses) ? cssClasses : [cssClasses];
 			this.addClassesToElement(this.element, this.cssClass);
 		}
 		if (attributes) {
-			this.attributes = Array.isArray(attributes) ? [...attributes] : [attributes];
+			this.attributes = Array.isArray(attributes) ? attributes : [attributes];
 			this.addAttributesToElement(this.element, this.attributes);
 		}
 	}
