@@ -8,19 +8,19 @@ class Attribute {
 	}
 }
 class Component {
-	constructor(type, text, cssClasses, attributes) {
-		this.initValues(type, text, cssClasses, attributes);
+	constructor(type, innerText, cssClasses, attributes) {
+		this.initValues(type, innerText, cssClasses, attributes);
 	}
 
-	initValues(type, text, cssClasses, attributes) {
+	initValues(type, innerText, cssClasses, attributes) {
 		if (!type || type === '') {
 			throw 'cannot create element without type';
 		} else {
 			this.type = type;
 			this.element = this.getTypedElement();
 		}
-		if (text) {
-			this.text = text;
+		if (innerText) {
+			this.text = innerText;
 			this.element.innerHTML = this.text;
 		}
 		if (cssClasses) {
@@ -75,16 +75,15 @@ class Popup extends Config {
 	render() {}
 }
 
-const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'))
-	.element;
+const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'));
 
 const component2 = new Component(
 	'button',
 	'ok',
 	['foo', 'bar-class'],
 	[new Attribute('id', 'siema'), new Attribute('disabled', 'false')]
-).element;
+);
 
 console.log(component);
 console.log(component2);
-document.querySelector('#app').append(component, component2);
+document.querySelector('#app').append(component.element, component2.element);
