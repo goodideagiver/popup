@@ -93,23 +93,35 @@ class Config {
 		this.initOptions(options);
 	}
 
+	getDefaultButton() {
+		return new Button('Ok', true);
+	}
+
 	initOptions(options) {
 		this.backdrop = options.backdrop ? options.backdrop : 'default backdrop option';
-		this.buttons = options.buttons ? options.buttons : 'default buttons option';
+		this.buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
 		this.position = options.position ? options.position : 'default position option';
 	}
 }
 class Popup extends Config {
-	constructor(titleText, options) {
+	constructor(titleText, options = {}) {
 		//{buttons,backdropOptions,position,animation,[css classes]}} - options
-		if (options) {
-			super(options);
-		}
+		super(options);
+		this.generatePopupElement();
 	}
 
-	generateCustomButtons() {}
+	generatePopupElement() {
+		this.generateButtonElements();
+	}
 
-	generateBackdrop() {}
+	generateButtonElements() {
+		this.buttonElements = [];
+		this.buttons.forEach(button => {
+			this.buttonElements.push(button.element);
+		});
+	}
+
+	generateBackdropElement() {}
 
 	show() {}
 
@@ -130,4 +142,5 @@ console.log(component2);
 document.querySelector('#app').append(component.element, component2.element);
 
 const popup1 = new Popup('Helllo', { backdrop: 'hi', buttons: [new Button('foo')] });
+const defaultPopup = new Popup('Defalult popup');
 console.log(popup1);
