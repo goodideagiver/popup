@@ -48,7 +48,15 @@ class Component {
 		return document.createElement(this.type);
 	}
 }
-class Animation {}
+class Animation {
+	constructor(animationType) {
+		//zoom/fade/zoomFade
+	}
+
+	reveal() {}
+
+	hide() {}
+}
 class Backdrop extends Component {
 	constructor(closeOnClick = true, clickThrough = false) {
 		this.closeOnClick = closeOnClick;
@@ -58,8 +66,14 @@ class Backdrop extends Component {
 	getBackdrop() {}
 }
 class Button extends Component {
-	constructor(text = 'Ok', closeOnClick = true, callbackFunc = false) {
-		super('button', text);
+	constructor(
+		text = 'Ok',
+		closeOnClick = true,
+		callbackFunc = false,
+		customCssClasses,
+		customAttributes
+	) {
+		super('button', text, customCssClasses, customAttributes);
 		this.getButton(closeOnClick, callbackFunc);
 	}
 
