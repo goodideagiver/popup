@@ -63,7 +63,11 @@ class Button extends Component {
 		this.getButton(closeOnClick, callbackFunc);
 	}
 
-	getButton(text, closeOnClick, callbackFunc) {
+	getButtonElement() {
+		return this.element;
+	}
+
+	getButton(closeOnClick, callbackFunc) {
 		this.closeOnClick = closeOnClick;
 		this.callbackFunc = callbackFunc;
 	}
