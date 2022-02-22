@@ -92,7 +92,10 @@ class Button extends Component {
 		this.closeOnClick = closeOnClick;
 		this.callbackFunc = callbackFunc;
 		if (closeOnClick === true) {
-			this.element.addEventListener('click', () => backdrop.hide());
+			this.element.addEventListener('click', () => {
+				console.log(this.element);
+				this.element.closest('.popupjs-backdrop').remove();
+			});
 		}
 	}
 }
