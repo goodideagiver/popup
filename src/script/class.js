@@ -59,11 +59,18 @@ class Animation {
 }
 class Backdrop extends Component {
 	constructor(closeOnClick = true, clickThrough = false) {
+		super('div', '', 'popupjs-backdrop');
 		this.closeOnClick = closeOnClick;
 		this.clickThrough = clickThrough;
 	}
 
-	getBackdrop() {}
+	hideBackdrop() {
+		this.element.remove();
+	}
+
+	getBackdropElement() {
+		return this.element;
+	}
 }
 class Button extends Component {
 	constructor(
@@ -84,48 +91,75 @@ class Button extends Component {
 	getButton(closeOnClick, callbackFunc) {
 		this.closeOnClick = closeOnClick;
 		this.callbackFunc = callbackFunc;
+		if (closeOnClick === true) {
+			this.element.addEventListener('click', () => backdrop.hide());
+		}
 	}
 }
 class Position {}
 
 class Config {
+	#buttons;
+
 	constructor(options) {
 		this.initOptions(options);
 	}
 
 	getDefaultButton() {
-		return new Button('Ok', true);
+		return new Button('Ok', true, false, 'popup-button-default');
+	}
+
+	getDefaultPosition() {
+		return 'middle';
 	}
 
 	initOptions(options) {
-		this.backdrop = options.backdrop ? options.backdrop : 'default backdrop option';
-		this.buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
-		this.position = options.position ? options.position : 'default position option';
+		this.backdrop = options.backdrop
+			? options.backdrop
+			: new Backdrop().getBackdropElement();
+		this.#buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
+		this.position = options.position ? options.position : this.getDefaultPosition();
+	}
+	generateButtonElements() {
+		this.buttonElements = [];
+		this.#buttons.forEach(button => {
+			this.buttonElements.push(button.element);
+		});
 	}
 }
 class Popup extends Config {
 	constructor(titleText, options = {}) {
 		//{buttons,backdropOptions,position,animation,[css classes]}} - options
 		super(options);
+		this.generateTitle(titleText);
 		this.generatePopupElement();
+	}
+
+	generateTitle(title) {
+		this.titleElemet = new Component('h2', title, 'popup-title').element;
+	}
+
+	generateButtonsDiv() {
+		return new Component('div', '', 'popup-buttons').element;
 	}
 
 	generatePopupElement() {
 		this.generateButtonElements();
+		const popupElement = new Component('div', '', 'popup').element;
+		const buttonsDiv = this.generateButtonsDiv();
+		buttonsDiv.append(...this.buttonElements);
+		popupElement.append(this.titleElemet, buttonsDiv);
+		this.backdrop.append(popupElement);
+		this.popupElement = popupElement;
 	}
 
-	generateButtonElements() {
-		this.buttonElements = [];
-		this.buttons.forEach(button => {
-			this.buttonElements.push(button.element);
-		});
+	show() {
+		document.body.append(this.backdrop);
 	}
 
-	generateBackdropElement() {}
-
-	show() {}
-
-	hide() {}
+	hide() {
+		this.backdrop.remove();
+	}
 }
 
 const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'));
@@ -137,10 +171,11 @@ const component2 = new Component(
 	[new Attribute('id', 'siema'), new Attribute('disabled', 'false')]
 );
 
-console.log(component);
-console.log(component2);
-document.querySelector('#app').append(component.element, component2.element);
+// console.log(component);
+// console.log(component2);
+// document.querySelector('#app').append(component.element, component2.element);
 
-const popup1 = new Popup('Helllo', { backdrop: 'hi', buttons: [new Button('foo')] });
+const popup1 = new Popup('Helllo', { buttons: [new Button('foo')] });
 const defaultPopup = new Popup('Defalult popup');
-console.log(popup1);
+console.log(defaultPopup);
+defaultPopup.show();
