@@ -1,6 +1,5 @@
 class Style {}
 
-class Config {}
 class Attribute {
 	constructor(id, value) {
 		this.attrId = id;
@@ -51,28 +50,52 @@ class Component {
 }
 class Animation {}
 class Backdrop extends Component {
-	constructor(closeOnClick = true, ClickThrough = false) {
+	constructor(closeOnClick = true, clickThrough = false) {
 		this.closeOnClick = closeOnClick;
-		this.clickThrough = this.clickThrough;
+		this.clickThrough = clickThrough;
 	}
 
 	getBackdrop() {}
 }
 class Button extends Component {
 	constructor(text = 'Ok', closeOnClick = true, callbackFunc = false) {
-		this.getButton();
+		super('button', text);
+		this.getButton(closeOnClick, callbackFunc);
 	}
 
-	getButton() {}
+	getButton(text, closeOnClick, callbackFunc) {
+		this.closeOnClick = closeOnClick;
+		this.callbackFunc = callbackFunc;
+	}
 }
 class Position {}
-class Popup extends Config {
-	constructor(title = 'Default title', subText = false, options) {
-		//{buttons,backdropOptions,position,animation,[css classes]}} - options
-		this.render();
+
+class Config {
+	constructor(options) {
+		this.initOptions(options);
 	}
 
-	render() {}
+	initOptions(options) {
+		this.backdrop = options.backdrop ? options.backdrop : 'default backdrop option';
+		this.buttons = options.buttons ? options.buttons : 'default buttons option';
+		this.position = options.position ? options.position : 'default position option';
+	}
+}
+class Popup extends Config {
+	constructor(titleText, options) {
+		//{buttons,backdropOptions,position,animation,[css classes]}} - options
+		if (options) {
+			super(options);
+		}
+	}
+
+	generateCustomButtons() {}
+
+	generateBackdrop() {}
+
+	show() {}
+
+	hide() {}
 }
 
 const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'));
@@ -87,3 +110,6 @@ const component2 = new Component(
 console.log(component);
 console.log(component2);
 document.querySelector('#app').append(component.element, component2.element);
+
+const popup1 = new Popup('Helllo', { backdrop: 'hi', buttons: [new Button('foo')] });
+console.log(popup1);
