@@ -150,8 +150,8 @@ class CustomAnimation {
 
 	revealAnimation(backdrop, popup) {
 		console.log(this.duration);
-		backdrop.style = `opacity = 0; transition: ${this.duration.reveal}s`;
-		popup.style = `opacity = 0; transition: ${this.duration.reveal}s`;
+		backdrop.style = `opacity: 0; transition: ${this.duration.reveal}s`;
+		popup.style = `opacity: 0; transition: ${this.duration.reveal}s`;
 		setTimeout(() => {
 			backdrop.style = `transition: ${this.duration.reveal}s`;
 			popup.style = `transition: ${this.duration.reveal}s`;
@@ -159,12 +159,11 @@ class CustomAnimation {
 	}
 
 	hideAnimation(backdrop, popup) {
-		backdrop.style = `transition: ${this.duration.reveal}s`;
-		popup.style = `transition: ${this.duration.reveal}s`;
+		backdrop.style = `opacity: 0; transition: ${this.duration.reveal}s`;
+		popup.style = `opacity:0; transition: ${this.duration.reveal}s`;
 		setTimeout(() => {
-			backdrop.style = `opacity = 0; transition: ${this.duration.reveal}s`;
-			popup.style = `opacity = 0; transition: ${this.duration.reveal}s`;
-		}, 1);
+			backdrop.remove();
+		}, this.duration.hide * 1000);
 	}
 }
 class Config extends CustomAnimation {
@@ -257,7 +256,6 @@ class Popup extends Config {
 
 	hide() {
 		this.hideAnimation(this.backdrop, this.popupElement);
-		this.backdrop.remove();
 	}
 }
 
