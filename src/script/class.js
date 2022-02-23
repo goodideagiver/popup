@@ -115,21 +115,22 @@ class CustomAnimation {
 	animationType = {
 		zoom: `transform: scale(0.1)`,
 		fade: `opacity: 0`,
+		zoomFade: `transform: scale(0.8); opacity: 0`,
 		custom: 'custom css class',
 		none: 'none',
 	};
 
 	getInlineStyle() {}
 
-	constructor(options = { duration: 0.5, type: 'zoom' }) {
+	constructor(options = { type: 'zoom' }) {
 		this.optionsHandler(options);
 		//zoom/fade/zoomFade
 		//reveal animation false/zoom/fade/zoomFade
 		//hide animation false/zoom/fade/zoomFade
-		console.log(this.duration);
 	}
 
 	optionsHandler(options) {
+		console.log(options);
 		switch (options.type) {
 			case 'zoom':
 				this.selectedAnimationType = this.animationType.zoom;
@@ -138,20 +139,26 @@ class CustomAnimation {
 				this.selectedAnimationType = this.animationType.fade;
 				break;
 			case 'zoomFade':
-				this.selectedAnimationType =
-					this.animationType.fade + `; ` + this.animationType.zoom;
+				this.selectedAnimationType = this.animationType.zoomFade;
 				break;
 			default:
 				throw 'Invalid animation type';
 				break;
 		}
-		//if (options.duration) this.duration = options.duration;
+		if (options.duration && options.duration.reveal && options.duration.hide) {
+			this.duration.reveal = options.duration.reveal;
+			this.duration.hide = options.duration.hide;
+		} else if (
+			(options.duration && options.duration.reveal) ||
+			(options.duration && options.duration.hide)
+		)
+			throw 'You need to specify duration hide and duration reveal';
 	}
 
 	revealAnimation(backdrop, popup) {
 		console.log(this.duration);
 		backdrop.style = `opacity: 0; transition: ${this.duration.reveal}s`;
-		popup.style = `opacity: 0; transition: ${this.duration.reveal}s`;
+		popup.style = `${this.selectedAnimationType}; transition: ${this.duration.reveal}s`;
 		setTimeout(() => {
 			backdrop.style = `transition: ${this.duration.reveal}s`;
 			popup.style = `transition: ${this.duration.reveal}s`;
@@ -159,8 +166,8 @@ class CustomAnimation {
 	}
 
 	hideAnimation(backdrop, popup) {
-		backdrop.style = `opacity: 0; transition: ${this.duration.reveal}s`;
-		popup.style = `opacity:0; transition: ${this.duration.reveal}s`;
+		backdrop.style = `opacity: 0; transition: ${this.duration.hide}s`;
+		popup.style = `${this.selectedAnimationType}; transition: ${this.duration.hide}s`;
 		setTimeout(() => {
 			backdrop.remove();
 		}, this.duration.hide * 1000);
@@ -289,6 +296,9 @@ const blueprintPopup = new Popup('What are Cookies', {
 	content: {
 		elementType: 'div',
 		innerHTML: cookiesText,
+	},
+	animation: {
+		type: 'zoomFade'
 	},
 });
 
