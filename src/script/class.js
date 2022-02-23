@@ -69,7 +69,7 @@ class Backdrop extends Component {
 	}
 
 	initOptions(options) {
-		if (options.closeOnClick === true)
+		if (options.closeOnClick !== false)
 			this.element.addEventListener('click', e => {
 				if (e.target === this.element) this.hideBackdrop();
 			});
@@ -117,11 +117,6 @@ class Button extends Component {
 }
 class Position {}
 
-class Content extends Component {
-	constructor(elementType, innerHTML, customCSS, attributes) {
-		super(elementType, innerHTML, customCSS, attributes);
-	}
-}
 class Config {
 	#buttons;
 
@@ -230,7 +225,6 @@ const component2 = new Component(
 const blueprintPopup = new Popup('Blueprint', {
 	customCss: 'siema popup',
 	backdrop: {
-		closeOnClick: false,
 		customCss: 'siema popupjs-backdrop',
 	},
 	buttons: [
