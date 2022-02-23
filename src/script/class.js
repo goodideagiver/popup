@@ -122,7 +122,6 @@ class Config {
 
 	constructor(options) {
 		this.initOptions(options);
-		console.log('config class ', this);
 	}
 
 	getDefaultButton() {
@@ -196,10 +195,12 @@ class Popup extends Config {
 	}
 
 	show() {
+		//tu musi byc animacja, dodanie klasy i pokazanie
 		document.body.append(this.backdrop);
 	}
 
 	hide() {
+		//tu musi byc animacja, dodanie jakiejs klasy i chowanie
 		this.backdrop.remove();
 	}
 }
@@ -212,15 +213,6 @@ const component2 = new Component(
 	['foo', 'bar-class'],
 	[new Attribute('id', 'siema'), new Attribute('disabled', 'false')]
 );
-
-// console.log(component);
-// console.log(component2);
-// document.querySelector('#app').append(component.element, component2.element);
-
-// const popup1 = new Popup('Helllo', { buttons: [new Button('foo')] });
-// const defaultPopup = new Popup('Defalult popup');
-// console.log(defaultPopup);
-// defaultPopup.show();
 
 const blueprintPopup = new Popup('Blueprint', {
 	customCss: 'siema popup',
@@ -244,4 +236,3 @@ const blueprintPopup = new Popup('Blueprint', {
 
 console.log(blueprintPopup);
 blueprintPopup.show();
-//do zrobienia backdrop
