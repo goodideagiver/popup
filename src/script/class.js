@@ -148,7 +148,7 @@ class CustomAnimation {
 		//if (options.duration) this.duration = options.duration;
 	}
 
-	static reveal(backdrop, popup) {
+	revealAnimation(backdrop, popup) {
 		console.log(this.duration);
 		backdrop.style = `opacity = 0; transition: ${this.duration.reveal}s`;
 		popup.style = `opacity = 0; transition: ${this.duration.reveal}s`;
@@ -158,7 +158,7 @@ class CustomAnimation {
 		}, 1);
 	}
 
-	hide(backdrop, popup) {
+	hideAnimation(backdrop, popup) {
 		backdrop.style = `transition: ${this.duration.reveal}s`;
 		popup.style = `transition: ${this.duration.reveal}s`;
 		setTimeout(() => {
@@ -251,12 +251,12 @@ class Popup extends Config {
 	}
 
 	show() {
-		CustomAnimation.reveal(this.backdrop, this.popupElement);
 		document.body.append(this.backdrop);
+		this.revealAnimation(this.backdrop, this.popupElement);
 	}
 
 	hide() {
-		CustomAnimation.hide(this.backdrop, this.popupElement);
+		this.hideAnimation(this.backdrop, this.popupElement);
 		this.backdrop.remove();
 	}
 }
