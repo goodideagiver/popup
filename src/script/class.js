@@ -59,10 +59,7 @@ class Backdrop extends Component {
 	}
 
 	initOptions(options) {
-		if (options.closeOnClick !== false)
-			this.element.addEventListener('click', e => {
-				if (e.target === this.element) this.hideBackdrop();
-			});
+		if (options.closeOnClick !== false) this.closeOnClick = true;
 		if (options.clickThrough === true) this.element.style.pointerEvents = 'none';
 		if (options.customCss) this.element.className = options.customCss;
 	}
@@ -95,12 +92,6 @@ class Button extends Component {
 	getButton(closeOnClick, callbackFunc) {
 		this.closeOnClick = closeOnClick;
 		this.callbackFunc = callbackFunc;
-		if (closeOnClick === true) {
-			this.element.addEventListener('click', () => {
-				console.log(this.element, 'close popup');
-				this.element.closest('.popupjs-backdrop').remove();
-			});
-		}
 		if (callbackFunc) this.element.addEventListener('click', callbackFunc);
 	}
 }
@@ -174,7 +165,7 @@ class CustomAnimation {
 	}
 }
 class Config extends CustomAnimation {
-	#buttons;
+	buttons;
 
 	constructor(options) {
 		super(options.animation);
@@ -191,7 +182,8 @@ class Config extends CustomAnimation {
 	}
 
 	getCustomBackdrop(backdropOptions) {
-		return new Backdrop(backdropOptions).getBackdropElement();
+		this.customBackdrop = new Backdrop(backdropOptions);
+		return this.customBackdrop.getBackdropElement();
 	}
 
 	getPopupContent(options) {
@@ -212,7 +204,7 @@ class Config extends CustomAnimation {
 		this.backdrop = options.backdrop
 			? this.getCustomBackdrop(options.backdrop)
 			: new Backdrop().getBackdropElement();
-		this.#buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
+		this.buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
 		this.position = options.position ? options.position : this.getDefaultPosition();
 		if (options.customCss) {
 			this.customCss = options.customCss;
@@ -224,7 +216,7 @@ class Config extends CustomAnimation {
 	}
 	generateButtonElements() {
 		this.buttonElements = [];
-		this.#buttons.forEach(button => {
+		this.buttons.forEach(button => {
 			this.buttonElements.push(button.element);
 		});
 	}
@@ -246,7 +238,26 @@ class Popup extends Config {
 		return new Component('div', '', 'popup-buttons').element;
 	}
 
+	addBackdropClose() {
+		if (this.customBackdrop.closeOnClick)
+			this.backdrop.addEventListener('click', e => {
+				if (e.target === this.backdrop) this.hide();
+			});
+	}
+
+	addButtonClose() {
+		if (this.buttons) {
+			this.buttons
+				.filter(button => button.closeOnClick === true)
+				.forEach(button =>
+					button.element.addEventListener('click', () => this.hide())
+				);
+		}
+	}
+
 	generatePopupElement() {
+		this.addBackdropClose();
+		this.addButtonClose();
 		this.generateButtonElements();
 		const buttonsDiv = this.generateButtonsDiv();
 		buttonsDiv.append(...this.buttonElements);
@@ -266,15 +277,6 @@ class Popup extends Config {
 	}
 }
 
-const component = new Component('button', 'ok', 'foo', new Attribute('id', 'bar'));
-
-const component2 = new Component(
-	'button',
-	'ok',
-	['foo', 'bar-class'],
-	[new Attribute('id', 'siema'), new Attribute('disabled', 'false')]
-);
-
 const cookiesText =
 	'Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites.';
 
@@ -291,6 +293,7 @@ const blueprintPopup = new Popup('What are Cookies', {
 			'custom'
 		),
 		new Button('Close', true, false),
+		new Button('Close2', true, false),
 	],
 	position: 'middle',
 	content: {
@@ -298,7 +301,7 @@ const blueprintPopup = new Popup('What are Cookies', {
 		innerHTML: cookiesText,
 	},
 	animation: {
-		type: 'zoomFade'
+		type: 'zoomFade',
 	},
 });
 
