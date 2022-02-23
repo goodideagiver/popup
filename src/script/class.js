@@ -64,7 +64,6 @@ class Backdrop extends Component {
 	}
 
 	initOptions(options) {
-		console.log(options);
 		if (options.closeOnClick === true)
 			this.element.addEventListener('click', e => {
 				if (e.target === this.element) this.hideBackdrop();
@@ -133,7 +132,7 @@ class Config {
 
 	initOptions(options) {
 		this.backdrop = options.backdrop
-			? this.getCustomBackdrop()
+			? this.getCustomBackdrop(options.backdrop)
 			: new Backdrop().getBackdropElement();
 		this.#buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
 		this.position = options.position ? options.position : this.getDefaultPosition();
