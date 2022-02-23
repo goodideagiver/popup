@@ -1,9 +1,9 @@
-class Style {
-	constructor(targetElement, customCss) {
-		if (!targetElement) throw 'Target Element is invalid';
-		if (!customCss) throw 'Invaid style options';
-	}
-}
+// class Style {
+// 	constructor(targetElement, customCss) {
+// 		if (!targetElement) throw 'Target Element is invalid';
+// 		if (!customCss) throw 'Invaid style options';
+// 	}
+// }
 
 class Attribute {
 	constructor(id, value) {
@@ -108,7 +108,7 @@ class CustomAnimation {
 		fade: `opacity: 0`,
 		zoomFade: `transform: scale(0.8); opacity: 0`,
 		custom: 'custom css class',
-		none: 'none',
+		none: '',
 	};
 
 	getInlineStyle() {}
@@ -131,6 +131,13 @@ class CustomAnimation {
 				break;
 			case 'zoomFade':
 				this.selectedAnimationType = this.animationType.zoomFade;
+				break;
+			case 'none':
+				this.selectedAnimationType = this.animationType.none;
+				this.duration = {
+					reveal: 0,
+					hide: 0,
+				};
 				break;
 			default:
 				throw 'Invalid animation type';
@@ -280,7 +287,7 @@ class Popup extends Config {
 const cookiesText =
 	'Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites.';
 
-const blueprintPopup = new Popup('What are Cookies', {
+const blueprintPopup = new Popup('What are Cookies?', {
 	customCss: 'siema popup',
 	backdrop: {
 		customCss: 'siema popupjs-backdrop',
@@ -301,7 +308,7 @@ const blueprintPopup = new Popup('What are Cookies', {
 		innerHTML: cookiesText,
 	},
 	animation: {
-		type: 'zoomFade',
+		type: 'none',
 	},
 });
 
