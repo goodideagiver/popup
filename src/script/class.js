@@ -117,11 +117,17 @@ class Button extends Component {
 }
 class Position {}
 
+class Content extends Component {
+	constructor(elementType, innerHTML, customCSS, attributes) {
+		super(elementType, innerHTML, customCSS, attributes);
+	}
+}
 class Config {
 	#buttons;
 
 	constructor(options) {
 		this.initOptions(options);
+		console.log('config class ', this);
 	}
 
 	getDefaultButton() {
@@ -133,8 +139,16 @@ class Config {
 	}
 
 	getCustomBackdrop(backdropOptions) {
-		console.log('config class ', backdropOptions);
 		return new Backdrop(backdropOptions).getBackdropElement();
+	}
+
+	getPopupContent(options) {
+		return new Component(
+			options.elementType,
+			options.innerHTML,
+			options.customCss,
+			options.attributes
+		).element;
 	}
 
 	initOptions(options) {
@@ -148,6 +162,8 @@ class Config {
 		} else {
 			this.customCss = 'popup';
 		}
+		if (options.content)
+			this.popupContentElement = this.getPopupContent(options.content);
 	}
 	generateButtonElements() {
 		this.buttonElements = [];
@@ -177,7 +193,9 @@ class Popup extends Config {
 		const popupElement = new Component('div', '', this.customCss).element;
 		const buttonsDiv = this.generateButtonsDiv();
 		buttonsDiv.append(...this.buttonElements);
-		popupElement.append(this.titleElemet, buttonsDiv);
+		popupElement.append(this.titleElemet);
+		if (this.popupContentElement) popupElement.append(this.popupContentElement);
+		popupElement.append(buttonsDiv);
 		this.backdrop.append(popupElement);
 		this.popupElement = popupElement;
 	}
@@ -209,7 +227,7 @@ const component2 = new Component(
 // console.log(defaultPopup);
 // defaultPopup.show();
 
-const blueprintPopup = new Popup('title', {
+const blueprintPopup = new Popup('Blueprint', {
 	customCss: 'siema popup',
 	backdrop: {
 		closeOnClick: false,
@@ -224,7 +242,12 @@ const blueprintPopup = new Popup('title', {
 		),
 	],
 	position: 'middle',
+	content: {
+		elementType: 'div',
+		innerHTML: 'content HTML here',
+	},
 });
 
+console.log(blueprintPopup);
 blueprintPopup.show();
 //do zrobienia backdrop
