@@ -1,10 +1,3 @@
-// class Style {
-// 	constructor(targetElement, customCss) {
-// 		if (!targetElement) throw 'Target Element is invalid';
-// 		if (!customCss) throw 'Invaid style options';
-// 	}
-// }
-
 class Attribute {
 	constructor(id, value) {
 		this.attrId = id;
@@ -323,6 +316,7 @@ const blueprintPopup = new Popup('What are Cookies?', {
 	content: {
 		elementType: 'div',
 		innerHTML: cookiesText,
+		attributes: [new Attribute('id', 'foobar'), new Attribute('data', 'hello')],
 	},
 	animation: {
 		type: 'zoomFade',
