@@ -7,8 +7,8 @@ class Attribute {
 	}
 }
 class Component {
-	constructor(type, innerText, cssClasses, attributes) {
-		this.initValues(type, innerText, cssClasses, attributes);
+	constructor(type, innerHTML, cssClasses, attributes) {
+		this.initValues(type, innerHTML, cssClasses, attributes);
 	}
 
 	initValues(type, innerText, cssClasses, attributes) {
