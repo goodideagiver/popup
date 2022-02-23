@@ -28,7 +28,7 @@ class Component {
 			this.element.innerHTML = this.text;
 		}
 		if (cssClasses) {
-			this.cssClass = Array.isArray(cssClasses) ? cssClasses : [cssClasses];
+			this.cssClass = cssClasses;
 			this.addClassesToElement(this.element, this.cssClass);
 		}
 		if (attributes) {
@@ -37,10 +37,8 @@ class Component {
 		}
 	}
 
-	addClassesToElement(element, classArr) {
-		classArr.forEach(cssClass => {
-			element.classList.add(cssClass);
-		});
+	addClassesToElement(element, customCSS) {
+		element.className = customCSS;
 	}
 
 	addAttributesToElement(element, attributesArr) {
@@ -56,6 +54,8 @@ class Component {
 class Animation {
 	constructor(animationType) {
 		//zoom/fade/zoomFade
+		//reveal animation false/zoom/fade/zoomFade
+		//hide animation false/zoom/fade/zoomFade
 	}
 
 	reveal() {}
@@ -210,7 +210,7 @@ const component2 = new Component(
 // defaultPopup.show();
 
 const blueprintPopup = new Popup('title', {
-	customCss: ['siema', 'popup'],
+	customCss: 'siema popup',
 	backdrop: {
 		closeOnClick: false,
 		customCss: 'siema popupjs-backdrop',
