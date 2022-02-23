@@ -92,7 +92,7 @@ class Button extends Component {
 		innerHTML = 'Ok',
 		closeOnClick = true,
 		callbackFunc = false,
-		customCssClasses,
+		customCssClasses = 'popup-button-default',
 		customAttributes
 	) {
 		super('button', innerHTML, customCssClasses, customAttributes);
@@ -214,23 +214,22 @@ const component2 = new Component(
 	[new Attribute('id', 'siema'), new Attribute('disabled', 'false')]
 );
 
-const blueprintPopup = new Popup('Blueprint', {
+const cookiesText =
+	'Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites.';
+
+const blueprintPopup = new Popup('What are Cookies', {
 	customCss: 'siema popup',
 	backdrop: {
 		customCss: 'siema popupjs-backdrop',
 	},
 	buttons: [
-		new Button(
-			'This button should not close',
-			false,
-			() => console.log('clicked'),
-			'custom'
-		),
+		new Button('Nothing', false, () => console.log('clicked'), 'custom'),
+		new Button('Close', true, false),
 	],
 	position: 'middle',
 	content: {
 		elementType: 'div',
-		innerHTML: 'content HTML here',
+		innerHTML: cookiesText,
 	},
 });
 
