@@ -51,17 +51,7 @@ class Component {
 		return document.createElement(this.type);
 	}
 }
-class Animation {
-	constructor(animationType) {
-		//zoom/fade/zoomFade
-		//reveal animation false/zoom/fade/zoomFade
-		//hide animation false/zoom/fade/zoomFade
-	}
 
-	reveal() {}
-
-	hide() {}
-}
 class Backdrop extends Component {
 	constructor(options = { closeOnClick: true, clickThrough: false }) {
 		super('div', '', 'popupjs-backdrop');
@@ -74,7 +64,6 @@ class Backdrop extends Component {
 				if (e.target === this.element) this.hideBackdrop();
 			});
 		if (options.clickThrough === true) this.element.style.pointerEvents = 'none';
-		console.log(options.customCss, this.element);
 		if (options.customCss) this.element.className = options.customCss;
 	}
 
@@ -117,10 +106,73 @@ class Button extends Component {
 }
 class Position {}
 
-class Config {
+class CustomAnimation {
+	duration = {
+		reveal: 0.5,
+		hide: 0.5,
+	};
+
+	animationType = {
+		zoom: `transform: scale(0.1)`,
+		fade: `opacity: 0`,
+		custom: 'custom css class',
+		none: 'none',
+	};
+
+	getInlineStyle() {}
+
+	constructor(options = { duration: 0.5, type: 'zoom' }) {
+		this.optionsHandler(options);
+		//zoom/fade/zoomFade
+		//reveal animation false/zoom/fade/zoomFade
+		//hide animation false/zoom/fade/zoomFade
+		console.log(this.duration);
+	}
+
+	optionsHandler(options) {
+		switch (options.type) {
+			case 'zoom':
+				this.selectedAnimationType = this.animationType.zoom;
+				break;
+			case 'fade':
+				this.selectedAnimationType = this.animationType.fade;
+				break;
+			case 'zoomFade':
+				this.selectedAnimationType =
+					this.animationType.fade + `; ` + this.animationType.zoom;
+				break;
+			default:
+				throw 'Invalid animation type';
+				break;
+		}
+		//if (options.duration) this.duration = options.duration;
+	}
+
+	static reveal(backdrop, popup) {
+		console.log(this.duration);
+		backdrop.style = `opacity = 0; transition: ${this.duration.reveal}s`;
+		popup.style = `opacity = 0; transition: ${this.duration.reveal}s`;
+		setTimeout(() => {
+			backdrop.style = `transition: ${this.duration.reveal}s`;
+			popup.style = `transition: ${this.duration.reveal}s`;
+		}, 1);
+	}
+
+	hide(backdrop, popup) {
+		backdrop.style = `transition: ${this.duration.reveal}s`;
+		popup.style = `transition: ${this.duration.reveal}s`;
+		setTimeout(() => {
+			backdrop.style = `opacity = 0; transition: ${this.duration.reveal}s`;
+			popup.style = `opacity = 0; transition: ${this.duration.reveal}s`;
+		}, 1);
+	}
+}
+class Config extends CustomAnimation {
 	#buttons;
 
 	constructor(options) {
+		super(options.animation);
+		console.log('config', options);
 		this.initOptions(options);
 	}
 
@@ -145,7 +197,12 @@ class Config {
 		).element;
 	}
 
+	generatePopupEl(options) {
+		this.popupElement = new Component('div', '', options.customCss).element;
+	}
+
 	initOptions(options) {
+		this.generatePopupEl(options);
 		this.backdrop = options.backdrop
 			? this.getCustomBackdrop(options.backdrop)
 			: new Backdrop().getBackdropElement();
@@ -172,6 +229,7 @@ class Popup extends Config {
 		super(options);
 		this.generateTitle(titleInnerHTML);
 		this.generatePopupElement();
+		console.dir(this);
 	}
 
 	generateTitle(title) {
@@ -184,23 +242,21 @@ class Popup extends Config {
 
 	generatePopupElement() {
 		this.generateButtonElements();
-		const popupElement = new Component('div', '', this.customCss).element;
 		const buttonsDiv = this.generateButtonsDiv();
 		buttonsDiv.append(...this.buttonElements);
-		popupElement.append(this.titleElemet);
-		if (this.popupContentElement) popupElement.append(this.popupContentElement);
-		popupElement.append(buttonsDiv);
-		this.backdrop.append(popupElement);
-		this.popupElement = popupElement;
+		this.popupElement.append(this.titleElemet);
+		if (this.popupContentElement) this.popupElement.append(this.popupContentElement);
+		this.popupElement.append(buttonsDiv);
+		this.backdrop.append(this.popupElement);
 	}
 
 	show() {
-		//tu musi byc animacja, dodanie klasy i pokazanie
+		CustomAnimation.reveal(this.backdrop, this.popupElement);
 		document.body.append(this.backdrop);
 	}
 
 	hide() {
-		//tu musi byc animacja, dodanie jakiejs klasy i chowanie
+		CustomAnimation.hide(this.backdrop, this.popupElement);
 		this.backdrop.remove();
 	}
 }
@@ -223,7 +279,12 @@ const blueprintPopup = new Popup('What are Cookies', {
 		customCss: 'siema popupjs-backdrop',
 	},
 	buttons: [
-		new Button('Nothing', false, () => console.log('clicked'), 'custom'),
+		new Button(
+			'Console',
+			false,
+			() => console.log('This button does nothing'),
+			'custom'
+		),
 		new Button('Close', true, false),
 	],
 	position: 'middle',
@@ -232,6 +293,9 @@ const blueprintPopup = new Popup('What are Cookies', {
 		innerHTML: cookiesText,
 	},
 });
+
+//DO ZROBIENIA POSITION
+//DO ZROBIENIA ANIMATION
 
 console.log(blueprintPopup);
 blueprintPopup.show();
