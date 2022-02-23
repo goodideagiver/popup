@@ -58,13 +58,22 @@ class Animation {
 	hide() {}
 }
 class Backdrop extends Component {
-	constructor(closeOnClick = true, clickThrough = false) {
+	constructor(options = { closeOnClick: true, clickThrough: false }) {
 		super('div', '', 'popupjs-backdrop');
-		this.closeOnClick = closeOnClick;
-		this.clickThrough = clickThrough;
+		this.initOptions(options);
+	}
+
+	initOptions(options) {
+		console.log(options);
+		if (options.closeOnClick === true)
+			this.element.addEventListener('click', e => {
+				if (e.target === this.element) this.hideBackdrop();
+			});
+		if (options.clickThrough === true) this.element.style.pointerEvents = 'none';
 	}
 
 	hideBackdrop() {
+		//tutaj sie zrobi jakas uniwersalna klase do chowania, np class Animiation bedzie to robic
 		this.element.remove();
 	}
 
@@ -93,10 +102,11 @@ class Button extends Component {
 		this.callbackFunc = callbackFunc;
 		if (closeOnClick === true) {
 			this.element.addEventListener('click', () => {
-				console.log(this.element);
+				console.log(this.element, 'close popup');
 				this.element.closest('.popupjs-backdrop').remove();
 			});
 		}
+		if (callbackFunc) this.element.addEventListener('click', callbackFunc);
 	}
 }
 class Position {}
@@ -116,9 +126,14 @@ class Config {
 		return 'middle';
 	}
 
+	getCustomBackdrop(backdropOptions) {
+		console.log('config class ', backdropOptions);
+		return new Backdrop(backdropOptions).getBackdropElement();
+	}
+
 	initOptions(options) {
 		this.backdrop = options.backdrop
-			? options.backdrop
+			? this.getCustomBackdrop()
 			: new Backdrop().getBackdropElement();
 		this.#buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
 		this.position = options.position ? options.position : this.getDefaultPosition();
@@ -182,3 +197,16 @@ const popup1 = new Popup('Helllo', { buttons: [new Button('foo')] });
 const defaultPopup = new Popup('Defalult popup');
 console.log(defaultPopup);
 defaultPopup.show();
+
+const blueprintPopup = new Popup('title', {
+	backdrop: {
+		closeOnClick: false,
+	},
+	buttons: [
+		new Button('This button should not close', false, () => console.log('clicked')),
+	],
+	position: 'middle',
+});
+
+blueprintPopup.show();
+//do zrobienia backdrop
