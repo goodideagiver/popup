@@ -74,6 +74,8 @@ class Backdrop extends Component {
 				if (e.target === this.element) this.hideBackdrop();
 			});
 		if (options.clickThrough === true) this.element.style.pointerEvents = 'none';
+		console.log(options.customCss, this.element);
+		if (options.customCss) this.element.className = options.customCss;
 	}
 
 	hideBackdrop() {
@@ -208,12 +210,18 @@ const component2 = new Component(
 // defaultPopup.show();
 
 const blueprintPopup = new Popup('title', {
-	customCss: 'siema',
+	customCss: ['siema', 'popup'],
 	backdrop: {
 		closeOnClick: false,
+		customCss: 'siema popupjs-backdrop',
 	},
 	buttons: [
-		new Button('This button should not close', false, () => console.log('clicked')),
+		new Button(
+			'This button should not close',
+			false,
+			() => console.log('clicked'),
+			'custom'
+		),
 	],
 	position: 'middle',
 });
