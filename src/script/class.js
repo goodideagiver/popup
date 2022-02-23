@@ -1,4 +1,9 @@
-class Style {}
+class Style {
+	constructor(targetElement, customCss) {
+		if (!targetElement) throw 'Target Element is invalid';
+		if (!customCss) throw 'Invaid style options';
+	}
+}
 
 class Attribute {
 	constructor(id, value) {
@@ -136,6 +141,11 @@ class Config {
 			: new Backdrop().getBackdropElement();
 		this.#buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
 		this.position = options.position ? options.position : this.getDefaultPosition();
+		if (options.customCss) {
+			this.customCss = options.customCss;
+		} else {
+			this.customCss = 'popup';
+		}
 	}
 	generateButtonElements() {
 		this.buttonElements = [];
@@ -162,7 +172,7 @@ class Popup extends Config {
 
 	generatePopupElement() {
 		this.generateButtonElements();
-		const popupElement = new Component('div', '', 'popup').element;
+		const popupElement = new Component('div', '', this.customCss).element;
 		const buttonsDiv = this.generateButtonsDiv();
 		buttonsDiv.append(...this.buttonElements);
 		popupElement.append(this.titleElemet, buttonsDiv);
@@ -192,12 +202,13 @@ const component2 = new Component(
 // console.log(component2);
 // document.querySelector('#app').append(component.element, component2.element);
 
-const popup1 = new Popup('Helllo', { buttons: [new Button('foo')] });
-const defaultPopup = new Popup('Defalult popup');
-console.log(defaultPopup);
-defaultPopup.show();
+// const popup1 = new Popup('Helllo', { buttons: [new Button('foo')] });
+// const defaultPopup = new Popup('Defalult popup');
+// console.log(defaultPopup);
+// defaultPopup.show();
 
 const blueprintPopup = new Popup('title', {
+	customCss: 'siema',
 	backdrop: {
 		closeOnClick: false,
 	},
