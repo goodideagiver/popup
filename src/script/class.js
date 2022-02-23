@@ -89,13 +89,13 @@ class Backdrop extends Component {
 }
 class Button extends Component {
 	constructor(
-		text = 'Ok',
+		innerHTML = 'Ok',
 		closeOnClick = true,
 		callbackFunc = false,
 		customCssClasses,
 		customAttributes
 	) {
-		super('button', text, customCssClasses, customAttributes);
+		super('button', innerHTML, customCssClasses, customAttributes);
 		this.getButton(closeOnClick, callbackFunc);
 	}
 
@@ -157,10 +157,10 @@ class Config {
 	}
 }
 class Popup extends Config {
-	constructor(titleText, options = {}) {
+	constructor(titleInnerHTML, options = {}) {
 		//{buttons,backdropOptions,position,animation,[css classes]}} - options
 		super(options);
-		this.generateTitle(titleText);
+		this.generateTitle(titleInnerHTML);
 		this.generatePopupElement();
 	}
 
