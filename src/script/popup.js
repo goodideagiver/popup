@@ -57,11 +57,6 @@ class Backdrop extends Component {
 		if (options.customCss) this.element.className = options.customCss;
 	}
 
-	hideBackdrop() {
-		//tutaj sie zrobi jakas uniwersalna klase do chowania, np class Animiation bedzie to robic
-		this.element.remove();
-	}
-
 	getBackdropElement() {
 		return this.element;
 	}
