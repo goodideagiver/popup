@@ -75,14 +75,14 @@ class Button extends Component {
 		customAttributes
 	) {
 		super('button', innerHTML, customCssClasses, customAttributes);
-		this.getButton(closeOnClick, callbackFunc);
+		this.initButton(closeOnClick, callbackFunc);
 	}
 
 	getButtonElement() {
 		return this.element;
 	}
 
-	getButton(closeOnClick, callbackFunc) {
+	initButton(closeOnClick, callbackFunc) {
 		this.closeOnClick = closeOnClick;
 		this.callbackFunc = callbackFunc;
 		if (callbackFunc) this.element.addEventListener('click', callbackFunc);
@@ -137,16 +137,20 @@ class CustomAnimation {
 		}
 	}
 
+	durationOptionHandler(options) {
+		if (options && options.duration) {
+			if (options.duration.reveal && options.duration.hide) {
+				this.duration.reveal = options.duration.reveal;
+				this.duration.hide = options.duration.hide;
+			} else {
+				throw 'You need to specify duration hide and duration reveal';
+			}
+		}
+	}
+
 	optionsHandler(options) {
 		this.typeOptionHandler(options.type);
-		if (options.duration && options.duration.reveal && options.duration.hide) {
-			this.duration.reveal = options.duration.reveal;
-			this.duration.hide = options.duration.hide;
-		} else if (
-			(options.duration && options.duration.reveal) ||
-			(options.duration && options.duration.hide)
-		)
-			throw 'You need to specify duration hide and duration reveal';
+		this.durationOptionHandler(options);
 	}
 
 	revealAnimation(backdrop, popup) {
