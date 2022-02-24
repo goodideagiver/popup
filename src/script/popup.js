@@ -111,8 +111,10 @@ class CustomAnimation {
 		//hide animation false/zoom/fade/zoomFade
 	}
 
-	optionsHandler(options) {
-		switch (options.type) {
+	typeOptionHandler(type) {
+		if (!type) return;
+
+		switch (type) {
 			case 'zoom':
 				this.selectedAnimationType = this.animationType.zoom;
 				break;
@@ -133,6 +135,10 @@ class CustomAnimation {
 				throw 'Invalid animation type';
 				break;
 		}
+	}
+
+	optionsHandler(options) {
+		this.typeOptionHandler(options.type);
 		if (options.duration && options.duration.reveal && options.duration.hide) {
 			this.duration.reveal = options.duration.reveal;
 			this.duration.hide = options.duration.hide;
@@ -161,8 +167,6 @@ class CustomAnimation {
 	}
 }
 class Config extends CustomAnimation {
-	buttons;
-
 	constructor(options) {
 		super(options.animation);
 		this.initOptions(options);
@@ -170,6 +174,13 @@ class Config extends CustomAnimation {
 
 	getDefaultButton() {
 		return new Button('Ok', true, false, 'popup-button-default');
+	}
+
+	generateButtonElements() {
+		this.buttonElements = [];
+		this.buttons.forEach(button => {
+			this.buttonElements.push(button.element);
+		});
 	}
 
 	getDefaultPosition() {
@@ -181,7 +192,7 @@ class Config extends CustomAnimation {
 		return this.customBackdrop.getBackdropElement();
 	}
 
-	getPopupContent(options) {
+	createInnerPopupContentElement(options) {
 		return new Component(
 			options.elementType,
 			options.innerHTML,
@@ -190,49 +201,62 @@ class Config extends CustomAnimation {
 		).element;
 	}
 
-	generatePopupEl(options) {
+	createMainPopupElement(options) {
 		const customCSS = options.customCss ? options.customCss : 'popup';
 		this.popup = new Component('div', '', customCSS);
 		this.popupElement = this.popup.element;
 	}
 
-	positionOptionHandler(options) {
-		switch (options) {
-			case 'top':
-				this.backdrop.style = 'align-items: baseline';
-				break;
-			case 'bottom':
-				this.backdrop.style = 'align-items: end';
-				break;
-			case 'middle':
-				break;
+	positionOptionsHandler(options) {
+		if (options.position) {
+			switch (options.position) {
+				case 'top':
+					this.backdrop.style = 'align-items: baseline';
+					break;
+				case 'bottom':
+					this.backdrop.style = 'align-items: end';
+					break;
+				case 'middle':
+					break;
 
-			default:
-				break;
+				default:
+					break;
+			}
 		}
 	}
-
-	initOptions(options) {
-		this.generatePopupEl(options);
-		this.backdrop = options.backdrop
-			? this.getCustomBackdrop(options.backdrop)
-			: new Backdrop().getBackdropElement();
-		this.buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
-		this.position = options.position ? options.position : this.getDefaultPosition();
+	CSSOptionHandler(options) {
 		if (options.customCss) {
 			this.customCss = options.customCss;
 		} else {
 			this.customCss = 'popup';
 		}
-		if (options.content)
-			this.popupContentElement = this.getPopupContent(options.content);
-		if (options.position) this.positionOptionHandler(options.position);
 	}
-	generateButtonElements() {
-		this.buttonElements = [];
-		this.buttons.forEach(button => {
-			this.buttonElements.push(button.element);
-		});
+
+	innerContentOptionsHandler(options) {
+		if (options.content) {
+			this.popupContentElement = this.createInnerPopupContentElement(
+				options.content
+			);
+		}
+	}
+
+	backdropOptionsHandler(options) {
+		this.backdrop = options.backdrop
+			? this.getCustomBackdrop(options.backdrop)
+			: new Backdrop().getBackdropElement();
+	}
+
+	buttonOptionsHandler(options) {
+		this.buttons = options.buttons ? options.buttons : [this.getDefaultButton()];
+	}
+
+	initOptions(options) {
+		this.createMainPopupElement(options);
+		this.backdropOptionsHandler(options);
+		this.buttonOptionsHandler(options);
+		this.CSSOptionHandler(options);
+		this.innerContentOptionsHandler(options);
+		this.positionOptionsHandler(options);
 	}
 }
 class Popup extends Config {
