@@ -351,6 +351,3 @@ const blueprintPopup = new Popup('What are Cookies?', {
 		type: 'zoomFade',
 	},
 });
-
-//DO ZROBIENIA POSITION
-//DO ZROBIENIA ANIMATION
