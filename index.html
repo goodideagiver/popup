@@ -12,9 +12,54 @@
 	</head>
 	<body>
 		<section class="main-app" id="app">
-			<button id="bottom">Bottom</button>
-			<button id="middle">Middle</button>
-			<button id="top">Top</button>
+			<form>
+				<div>
+					<label for="headerText">Title text</label>
+					<input id="headerText" type="text" required />
+				</div>
+				<div>
+					<button id="addButton">Add button</button>
+				</div>
+				<div id="buttonAdder"></div>
+				<div class="backdrop-options">
+					<div class="backdrop-option">
+						<label for="">Close popup on backdrop click</label>
+						<input type="checkbox" name="" id="" checked />
+					</div>
+					<div class="backdrop-option">
+						<label for="">Allow clicking through backdrop</label>
+						<input type="checkbox" name="" id="" />
+					</div>
+					<div class="backdrop-option">
+						<label for="">Custom CSS classname</label>
+						<input type="text" />
+					</div>
+				</div>
+				<div class="animation-options">
+					<div>
+						<label for="animationType">Animation type</label>
+						<select name="" id="animationType">
+							<option value="asd">zoom fade</option>
+							<option value="asd">zoom</option>
+							<option value="asd">fade</option>
+							<option value="asd">none</option>
+						</select>
+					</div>
+					<div>
+						<label for="">Animation in duration [sec]</label>
+						<input type="number" />
+					</div>
+					<div>
+						<label for="">Animation out duration [sec]</label>
+						<input type="number" />
+					</div>
+				</div>
+				<div class="done-reset-controls">
+					<button>Preview</button>
+					<button>Copy</button>
+					<button>Reset</button>
+				</div>
+			</form>
 		</section>
 	</body>
 </html>
