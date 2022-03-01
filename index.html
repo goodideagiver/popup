@@ -9,16 +9,17 @@
 		<link rel="stylesheet" href="src/style/css/min/popup.min.css" />
 		<script defer src="src/script/popup.js"></script>
 		<script defer src="src/script/app.js"></script>
+		<script defer src="src/script/popup-generator/app.js"></script>
 	</head>
 	<body>
 		<section class="main-app" id="app">
 			<h1>Popup.js generator</h1>
-			<form>
+			<form action="javascript:void(0);">
 				<div>
 					<label for="headerText">Title text</label>
 					<input id="headerText" type="text" required />
 				</div>
-				<div>
+				<div class="more">
 					<label for="position">Position</label>
 					<select id="position">
 						<option value="0">middle</option>
@@ -26,30 +27,30 @@
 						<option value="2">bottom</option>
 					</select>
 				</div>
-				<div>
+				<div class="more">
 					<label for="position">CSS classname</label>
 					<input id="customCSS" type="text" />
 				</div>
-				<div id="buttonAdder">
+				<div class="more" id="buttonAdder">
 					<h2>Buttons</h2>
 					<button id="addButton">Add button</button>
 				</div>
-				<div class="backdrop-options">
+				<div class="more" class="backdrop-options">
 					<h2>Backdrop</h2>
 					<div class="backdrop-option">
-						<label for="">Close popup on backdrop click</label>
-						<input type="checkbox" name="" id="" checked />
+						<label for="close">Close popup on backdrop click</label>
+						<input type="checkbox" id="close" checked />
 					</div>
-					<div class="backdrop-option">
-						<label for="">Allow clicking through backdrop</label>
-						<input type="checkbox" name="" id="" />
+					<div class="more" class="backdrop-option">
+						<label for="clickThr">Allow clicking through backdrop</label>
+						<input type="checkbox" id="clickThr" />
 					</div>
-					<div class="backdrop-option">
-						<label for="">Custom CSS classname</label>
-						<input type="text" />
+					<div class="more" class="backdrop-option">
+						<label for="backdropCSS">Custom CSS classname</label>
+						<input id="backdropCSS" type="text" />
 					</div>
 				</div>
-				<div class="animation-options">
+				<div class="more" class="animation-options">
 					<h2>Animation</h2>
 					<div>
 						<label for="animationType">Animation type</label>
@@ -61,23 +62,23 @@
 						</select>
 					</div>
 					<div>
-						<label for="">Animation in duration [sec]</label>
-						<input type="number" />
+						<label for="reveal">Animation in duration [sec]</label>
+						<input id="reveal" type="number" />
 					</div>
 					<div>
-						<label for="">Animation out duration [sec]</label>
-						<input type="number" />
+						<label for="hide">Animation out duration [sec]</label>
+						<input id="hide" type="number" />
 					</div>
 				</div>
-				<div>
+				<div class="more">
 					<h2>Content</h2>
 					<label for="content">Popup inner text [innerHTML]</label>
 					<input id="content" type="text" />
 				</div>
-				<div class="done-reset-controls">
-					<button>Preview</button>
-					<button>Copy</button>
-					<button>Reset</button>
+				<div class="more" class="done-reset-controls">
+					<button id="prev">Preview</button>
+					<button id="cpy">Copy</button>
+					<button id="reset">Reset</button>
 				</div>
 			</form>
 		</section>
