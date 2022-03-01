@@ -12,10 +12,23 @@
 	</head>
 	<body>
 		<section class="main-app" id="app">
+			<h1>Popup.js generator</h1>
 			<form>
 				<div>
 					<label for="headerText">Title text</label>
 					<input id="headerText" type="text" required />
+				</div>
+				<div>
+					<label for="position">Position</label>
+					<select id="position">
+						<option value="0">middle</option>
+						<option value="1">top</option>
+						<option value="2">bottom</option>
+					</select>
+				</div>
+				<div>
+					<label for="position">CSS classname</label>
+					<input id="customCSS" type="text" />
 				</div>
 				<div>
 					<button id="addButton">Add button</button>
@@ -38,11 +51,11 @@
 				<div class="animation-options">
 					<div>
 						<label for="animationType">Animation type</label>
-						<select name="" id="animationType">
-							<option value="asd">zoom fade</option>
-							<option value="asd">zoom</option>
-							<option value="asd">fade</option>
-							<option value="asd">none</option>
+						<select id="animationType">
+							<option value="0">zoom fade</option>
+							<option value="1">zoom</option>
+							<option value="2">fade</option>
+							<option value="3">none</option>
 						</select>
 					</div>
 					<div>
@@ -52,6 +65,10 @@
 					<div>
 						<label for="">Animation out duration [sec]</label>
 						<input type="number" />
+					</div>
+					<div class="content-option">
+						<label for="content">inner text</label>
+						<input id="content" type="text" />
 					</div>
 				</div>
 				<div class="done-reset-controls">
