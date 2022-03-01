@@ -12,35 +12,62 @@ body {
 }
 
 .main-app {
-	min-width: 100vw;
+	margin: auto;
+	//min-width: 100vw;
+	max-width: 1000px;
 	min-height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	gap: 10px;
 	button {
+		cursor: pointer;
+		padding: 5px 0;
 		text-align: center;
 		font-weight: bold;
 		font-size: 1rem;
 		background-color: white;
-		padding: 10px;
 		border-radius: 8px;
 		border: 0;
-		flex: 0 0 100px;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 0 2px 2px rgba(0, 0, 0, 0.12),
-			0 4px 4px rgba(0, 0, 0, 0.16), 0 8px 8px rgba(0, 0, 0, 0.2);
-		transition: 0.5s;
 		&:hover {
-			cursor: pointer;
-			box-shadow: 0.3px 0.5px 0.7px rgba(0, 0, 0, 0.08),
-				1.5px 2.9px 3.7px -0.4px rgba(0, 0, 0, 0.08),
-				2.7px 5.4px 6.8px -0.7px rgba(0, 0, 0, 0.08),
-				4.5px 8.9px 11.2px -1.1px rgba(0, 0, 0, 0.08),
-				7.1px 14.3px 18px -1.4px rgba(0, 0, 0, 0.08),
-				11.2px 22.3px 28.1px -1.8px rgba(0, 0, 0, 0.08),
-				17px 33.9px 42.7px -2.1px rgba(0, 0, 0, 0.08),
-				25px 50px 62.9px -2.5px rgba(0, 0, 0, 0.08);
-			transform: scale(1.1);
+			color: white;
+			background-color: rgb(110, 73, 2);
+		}
+	}
+	form {
+		width: 98%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 15px;
+		input,
+		select {
+			border-radius: 8px;
+			border: 0;
+			padding: 5px 2px;
+		}
+		> div {
+			flex: 1 1 45%;
+			min-width: 300px;
+			background-color: rgb(245, 198, 110);
+			padding: 10px;
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			> div {
+				display: grid;
+				grid-template-columns: 50% 50%;
+				align-items: center;
+			}
+			box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.192);
+		}
+		.done-reset-controls {
+			display: grid;
+			grid-template-columns: auto auto auto;
 		}
 	}
 }
