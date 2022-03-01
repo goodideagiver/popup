@@ -34,6 +34,26 @@ const validate = () => {
 	}
 };
 
+const getConfigObj = () => {
+	const title = elementsHook.popupTitle.value;
+	const options = {
+		customCss: elementsHook.popupCSS.value,
+		backdrop: {
+			closeOnClick: elementsHook.backdrop.close.value,
+			clickThrough: elementsHook.backdrop.clickThrough.value,
+			customCss: elementsHook.backdrop.CSS.value,
+		},
+		buttons,
+		position,
+		content,
+		animation,
+	};
+	return {
+		title,
+		options,
+	};
+};
+
 validate();
 
 elementsHook.popupTitle.addEventListener('input', validate);

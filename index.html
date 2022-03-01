@@ -17,7 +17,12 @@
 			<form action="javascript:void(0);">
 				<div>
 					<label for="headerText">Title text</label>
-					<input id="headerText" type="text" required />
+					<input
+						id="headerText"
+						type="text"
+						placeholder="Important message"
+						required
+					/>
 				</div>
 				<div class="more">
 					<label for="position">Position</label>
@@ -29,11 +34,11 @@
 				</div>
 				<div class="more">
 					<label for="position">CSS classname</label>
-					<input id="customCSS" type="text" />
+					<input value="popup" id="customCSS" type="text" />
 				</div>
 				<div class="more" id="buttonAdder">
 					<h2>Buttons</h2>
-					<button id="addButton">Add button</button>
+					<button id="addButton">New button</button>
 				</div>
 				<div class="more" class="backdrop-options">
 					<h2>Backdrop</h2>
@@ -47,7 +52,7 @@
 					</div>
 					<div class="more" class="backdrop-option">
 						<label for="backdropCSS">Custom CSS classname</label>
-						<input id="backdropCSS" type="text" />
+						<input value="popupjs-backdrop" id="backdropCSS" type="text" />
 					</div>
 				</div>
 				<div class="more" class="animation-options">
@@ -63,17 +68,17 @@
 					</div>
 					<div>
 						<label for="reveal">Animation in duration [sec]</label>
-						<input id="reveal" type="number" />
+						<input id="reveal" value="0.5" type="number" />
 					</div>
 					<div>
 						<label for="hide">Animation out duration [sec]</label>
-						<input id="hide" type="number" />
+						<input id="hide" value="0.5" type="number" />
 					</div>
 				</div>
 				<div class="more">
 					<h2>Content</h2>
 					<label for="content">Popup inner text [innerHTML]</label>
-					<input id="content" type="text" />
+					<input placeholder="Secondary popup text" id="content" type="text" />
 				</div>
 				<div class="more" class="done-reset-controls">
 					<button id="prev">Preview</button>
