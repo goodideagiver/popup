@@ -12,6 +12,7 @@ const elementsHook = {
 		type: document.getElementById('animationType'),
 	},
 	addButton: document.getElementById('addButton'),
+	buttonContainer: document.getElementById('buttonContainer'),
 	content: document.getElementById('content'),
 	optionControls: {
 		prev: document.getElementById('prev'),
@@ -54,6 +55,28 @@ const getConfigObj = () => {
 	};
 };
 
+const addButtonDiv = () => {
+	const wrapper = document.createElement('div');
+	wrapper.className = 'button-add-row';
+	wrapper.innerHTML = `
+
+        <div>
+            <input type="text"/>
+        </div>
+        <div>
+            <span>Close popup on click</span>
+            <input type="checkbox" checked/>
+        </div>
+        <div>
+            <span>Callback function</span>
+            <input type="text"/>
+        </div>
+    `;
+
+	elementsHook.buttonContainer.append(wrapper);
+};
+
 validate();
 
 elementsHook.popupTitle.addEventListener('input', validate);
+elementsHook.addButton.addEventListener('click', addButtonDiv);

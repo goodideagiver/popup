@@ -64,6 +64,23 @@ body {
 				grid-template-columns: 50% 50%;
 				align-items: center;
 			}
+			> .button-conteiner {
+				display: flex !important;
+				flex-direction: column !important;
+				gap: 5px;
+			}
+			.button-add-row {
+				margin: 5px 0;
+				border-radius: 5px;
+				padding: 5px;
+				border: 1px solid gray;
+				display: flex;
+				flex-wrap: wrap;
+				* {
+					flex: 1 1 100%;
+				}
+				flex-basis: 100%;
+			}
 			border: 1px gray solid;
 		}
 		.done-reset-controls {
