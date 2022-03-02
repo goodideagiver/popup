@@ -81,7 +81,10 @@ const addButtonDiv = () => {
 validate();
 
 elementsHook.popupTitle.addEventListener('input', validate);
-elementsHook.addButton.addEventListener('click', addButtonDiv);
+elementsHook.addButton.addEventListener('click', () => {
+	addButtonDiv();
+	elementsHook.buttonContainer.classList.remove('hide-btn-container');
+});
 elementsHook.buttonContainerFold.addEventListener('click', () => {
 	elementsHook.buttonContainer.classList.toggle('hide-btn-container');
 });
