@@ -55,7 +55,7 @@ class ButtonRow {
 
 const getButtonsConfig = () => {
 	const buttons = [...document.querySelectorAll('.button-add-row')];
-	if (!buttons) {
+	if (buttons.length === 0) {
 		return;
 	}
 	const buttonOptions = buttons.map(button => {
