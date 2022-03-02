@@ -2,7 +2,7 @@ const elementsHook = {
 	popupTitle: document.getElementById('headerText'),
 	popupCSS: document.getElementById('customCSS'),
 	backdrop: {
-		close: document.getElementById('close'),
+		close: document.getElementById('closeBack'),
 		clickThrough: document.getElementById('clickThr'),
 		CSS: document.getElementById('backdropCSS'),
 	},
@@ -24,7 +24,6 @@ const elementsHook = {
 
 const validate = () => {
 	const elements = [...document.querySelectorAll('.more')];
-	console.log('siem');
 	if (elementsHook.popupTitle.value.trim().length === 0) {
 		elements.forEach(el => {
 			el.style.display = 'none';
@@ -36,6 +35,10 @@ const validate = () => {
 	}
 };
 
+const getButtonsConfig = () => {};
+
+const getAnimationConfig = () => {};
+
 const getConfigObj = () => {
 	const title = elementsHook.popupTitle.value;
 	const options = {
@@ -45,10 +48,10 @@ const getConfigObj = () => {
 			clickThrough: elementsHook.backdrop.clickThrough.value,
 			customCss: elementsHook.backdrop.CSS.value,
 		},
-		buttons,
-		position,
-		content,
-		animation,
+		buttons: getButtonsConfig(),
+		position: elementsHook.position.value,
+		content: elementsHook.content.value,
+		animation: getAnimationConfig(),
 	};
 	return {
 		title,
