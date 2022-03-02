@@ -21,6 +21,7 @@ const elementsHook = {
 		copy: document.getElementById('cpy'),
 		reset: document.getElementById('reset'),
 	},
+	form: document.querySelector('form'),
 };
 
 const validate = () => {
@@ -122,4 +123,10 @@ elementsHook.addButton.addEventListener('click', () => {
 });
 elementsHook.buttonContainerFold.addEventListener('click', () => {
 	elementsHook.buttonContainer.classList.toggle('hide-btn-container');
+});
+elementsHook.form.addEventListener('input', e => {
+	console.log(getConfigObj());
+});
+elementsHook.form.addEventListener('click', e => {
+	console.log(getConfigObj());
 });
