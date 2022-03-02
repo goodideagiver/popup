@@ -11,6 +11,7 @@ const elementsHook = {
 		hide: document.getElementById('hide'),
 		type: document.getElementById('animationType'),
 	},
+	position: document.getElementById('position'),
 	addButton: document.getElementById('addButton'),
 	buttonContainer: document.getElementById('buttonContainer'),
 	buttonContainerFold: document.getElementById('btnContainer'),
@@ -64,7 +65,8 @@ const getButtonsConfig = () => {
 			return input.value;
 		});
 	});
-	return buttonOptions.filter(option => option[0] !== '');
+	const options = buttonOptions.filter(option => option[0] !== '' && option[0]);
+	return options.length > 0 ? options : undefined;
 };
 
 const getAnimationConfig = () => {};
