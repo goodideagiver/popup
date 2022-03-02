@@ -71,7 +71,21 @@ const getButtonsConfig = () => {
 	return options.length > 0 ? options : undefined;
 };
 
-const getAnimationConfig = () => {};
+const getAnimationConfig = () => {
+	options = {
+		reveal: elementsHook.animation.reveal.value,
+		hide: elementsHook.animation.hide.value,
+		type: elementsHook.animation.type.value,
+	};
+
+	if ((options.hide && !options.reveal) || (options.reveal && !options.hide)) {
+		return undefined;
+	}
+
+	Object.keys(options).forEach(k => options[k] == '' && delete options[k]);
+	Object.keys(options).forEach(k => options[k] == undefined && delete options[k]);
+	return options;
+};
 
 const getConfigObj = () => {
 	const outputElementHook = document.getElementById('output');
@@ -135,7 +149,7 @@ elementsHook.buttonContainerFold.addEventListener('click', () => {
 });
 elementsHook.form.addEventListener('input', e => {
 	console.log(e.target.tagName);
-	if (e.target.tagName === 'INPUT') {
+	if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
 		console.log(getConfigObj());
 	}
 });
