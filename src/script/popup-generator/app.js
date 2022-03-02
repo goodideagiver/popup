@@ -125,8 +125,13 @@ elementsHook.buttonContainerFold.addEventListener('click', () => {
 	elementsHook.buttonContainer.classList.toggle('hide-btn-container');
 });
 elementsHook.form.addEventListener('input', e => {
-	console.log(getConfigObj());
+	console.log(e.target.tagName);
+	if (e.target.tagName === 'INPUT') {
+		console.log(getConfigObj());
+	}
 });
 elementsHook.form.addEventListener('click', e => {
-	console.log(getConfigObj());
+	if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+		console.log(getConfigObj());
+	}
 });
