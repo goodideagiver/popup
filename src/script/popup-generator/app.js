@@ -115,8 +115,11 @@ const addButtonDiv = () => {
             <span>Callback function</span>
             <input type="text"/>
         </div>
+        <div>
+            <button>Delete</button>
+        </div>
     `;
-
+	wrapper.querySelector('button').addEventListener('click', () => wrapper.remove());
 	elementsHook.buttonContainer.append(wrapper);
 };
 
