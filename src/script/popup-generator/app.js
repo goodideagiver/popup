@@ -62,7 +62,8 @@ const getButtonsConfig = () => {
 	}
 	const buttonOptions = buttons.map(button => {
 		const inputs = [...button.querySelectorAll('input')];
-		return inputs.map(input => {
+		return inputs.map((input, index) => {
+			if (input.type === 'checkbox') return input.checked;
 			return input.value;
 		});
 	});
@@ -73,12 +74,14 @@ const getButtonsConfig = () => {
 const getAnimationConfig = () => {};
 
 const getConfigObj = () => {
+	const outputElementHook = document.getElementById('output');
+
 	const title = elementsHook.popupTitle.value;
 	const options = {
 		customCss: elementsHook.popupCSS.value,
 		backdrop: {
-			closeOnClick: elementsHook.backdrop.close.value,
-			clickThrough: elementsHook.backdrop.clickThrough.value,
+			closeOnClick: elementsHook.backdrop.close.checked,
+			clickThrough: elementsHook.backdrop.clickThrough.checked,
 			customCss: elementsHook.backdrop.CSS.value,
 		},
 		buttons: getButtonsConfig(),
@@ -86,6 +89,9 @@ const getConfigObj = () => {
 		content: elementsHook.content.value,
 		animation: getAnimationConfig(),
 	};
+	Object.keys(options).forEach(k => options[k] == '' && delete options[k]);
+	Object.keys(options).forEach(k => options[k] == undefined && delete options[k]);
+	outputElementHook.innerText = JSON.stringify(options).replace(/"([^"]+)":/g, '$1:');
 	return {
 		title,
 		options,
