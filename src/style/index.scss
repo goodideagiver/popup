@@ -12,6 +12,7 @@ body {
 }
 
 .main-app {
+	padding: 10px;
 	margin: auto;
 	//min-width: 100vw;
 	max-width: 1000px;
@@ -59,6 +60,7 @@ body {
 			transition: 1s;
 		}
 		> div {
+			height: 100%;
 			flex: 1 1 45%;
 			min-width: 300px;
 			background-color: rgb(245, 198, 110);
