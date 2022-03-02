@@ -50,12 +50,20 @@ body {
 			padding: 5px 2px;
 			cursor: pointer;
 		}
+		.button-container {
+			display: flex !important;
+			flex-direction: column !important;
+			gap: 5px;
+			overflow-y: scroll;
+			max-height: 50vh;
+			transition: 1s;
+		}
 		> div {
 			flex: 1 1 45%;
 			min-width: 300px;
 			background-color: rgb(245, 198, 110);
 			padding: 10px;
-			border-radius: 10px;
+			border-radius: 8px;
 			display: flex;
 			flex-direction: column;
 			gap: 5px;
@@ -64,20 +72,26 @@ body {
 				grid-template-columns: 50% 50%;
 				align-items: center;
 			}
-			> .button-conteiner {
-				display: flex !important;
-				flex-direction: column !important;
-				gap: 5px;
-			}
+
 			.button-add-row {
 				margin: 5px 0;
-				border-radius: 5px;
-				padding: 5px;
-				border: 1px solid gray;
+				border-radius: 8px;
+				padding: 10px;
+				background-color: rgba(128, 128, 128, 0.26);
 				display: flex;
 				flex-wrap: wrap;
-				* {
-					flex: 1 1 100%;
+				> div {
+					margin: 5px 0;
+					width: 100%;
+					display: flex;
+					flex-wrap: wrap;
+					align-items: center;
+					justify-content: center;
+					border-bottom: 1px black dashed;
+					padding-bottom: 10px;
+					* {
+						flex: 1 1 45%;
+					}
 				}
 				flex-basis: 100%;
 			}
@@ -88,4 +102,10 @@ body {
 			grid-template-columns: auto auto auto;
 		}
 	}
+}
+
+.hide-btn-container {
+	transition: 1s;
+	max-height: 0 !important;
+	overflow: hidden;
 }

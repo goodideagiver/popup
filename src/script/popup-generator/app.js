@@ -13,6 +13,7 @@ const elementsHook = {
 	},
 	addButton: document.getElementById('addButton'),
 	buttonContainer: document.getElementById('buttonContainer'),
+	buttonContainerFold: document.getElementById('btnContainer'),
 	content: document.getElementById('content'),
 	optionControls: {
 		prev: document.getElementById('prev'),
@@ -61,6 +62,7 @@ const addButtonDiv = () => {
 	wrapper.innerHTML = `
 
         <div>
+            <span>Button text [innerHTML]</span>
             <input type="text"/>
         </div>
         <div>
@@ -80,3 +82,6 @@ validate();
 
 elementsHook.popupTitle.addEventListener('input', validate);
 elementsHook.addButton.addEventListener('click', addButtonDiv);
+elementsHook.buttonContainerFold.addEventListener('click', () => {
+	elementsHook.buttonContainer.classList.toggle('hide-btn-container');
+});
