@@ -35,7 +35,37 @@ const validate = () => {
 	}
 };
 
-const getButtonsConfig = () => {};
+class ButtonRow {
+	constructor(text, closeOnClick, callbackFunName) {
+		this.buttonInit(text, closeOnClick, callbackFunName);
+	}
+
+	buttonInit(text, closeOnClick, callbackFunName) {
+		this.text = text;
+		if (closeOnClick !== true && closeOnClick !== false) {
+			this.closeOnClick = true;
+		} else {
+			this.closeOnClick = closeOnClick;
+		}
+		if (callbackFunName) {
+			this.callbackFunc = callbackFunName;
+		}
+	}
+}
+
+const getButtonsConfig = () => {
+	const buttons = [...document.querySelectorAll('.button-add-row')];
+	if (!buttons) {
+		return;
+	}
+	const buttonOptions = buttons.map(button => {
+		const inputs = [...button.querySelectorAll('input')];
+		return inputs.map(input => {
+			return input.value;
+		});
+	});
+	return buttonOptions.filter(option => option[0] !== '');
+};
 
 const getAnimationConfig = () => {};
 
