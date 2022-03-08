@@ -28,7 +28,7 @@ export const getInputElements = (title, popupOptions) => {
 			elements.push(contentStart, clickThrough, closeOnClick, contentEnd);
 		}
 		if (popupOptions.customCss) {
-			const customCss = `customCss: '${popupOptions.customCss},'`;
+			const customCss = `customCss: '${popupOptions.customCss}',`;
 			elements.push(customCss);
 		}
 		if (popupOptions.position) {
@@ -45,7 +45,7 @@ export const getInputElements = (title, popupOptions) => {
 				} else {
 					const fallback = `,false),`;
 				}
-				parsedButtons.push(buttonStart + fallback);
+				parsedButtons.push(buttonStart + fallback); //not defined error
 			});
 			elements.push(parsedButtons);
 		}
