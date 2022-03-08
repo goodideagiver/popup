@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
 	padding: 0;
 	margin: 0;
@@ -9,6 +11,13 @@ body {
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	font-size: 13px;
 	background-color: rgb(243, 242, 242);
+	background-color: #202020;
+	color: white;
+}
+
+h1 {
+	margin: auto;
+	width: fit-content;
 }
 
 .main-app {
@@ -20,8 +29,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
-	gap: 10px;
+	flex-direction: row;
+	gap: 20px;
 	button {
 		cursor: pointer;
 		padding: 5px 0;
@@ -63,7 +72,7 @@ body {
 			height: 100%;
 			flex: 1 1 45%;
 			min-width: 300px;
-			background-color: rgb(245, 198, 110);
+			background-color: #484848;
 			padding: 10px;
 			border-radius: 8px;
 			display: flex;
@@ -97,7 +106,7 @@ body {
 				}
 				flex-basis: 100%;
 			}
-			border: 1px gray solid;
+			//border: 3px gray solid;
 		}
 		.done-reset-controls {
 			display: grid;
@@ -113,6 +122,8 @@ body {
 }
 
 .output-command {
+	font-size: 1.2rem;
+	font-family: 'Roboto', sans-serif;
 	min-width: 300px;
 	background-color: black;
 	color: white;
