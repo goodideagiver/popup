@@ -1,3 +1,15 @@
+const createParagraph = textContent => {
+	const element = document.createElement('p');
+	element.innerText = textContent;
+	return element;
+};
+
+const updateOutput = elements => {
+	const outputElementContainer = document.getElementById('output');
+	outputElementContainer.innerHTML = '';
+	elements.forEach(element => outputElementContainer.appendChild(element));
+};
+
 export const getInputElements = (title, popupOptions) => {
 	const elements = [];
 	const titleEl = `new Popup('${title}',{`;
@@ -52,5 +64,7 @@ export const getInputElements = (title, popupOptions) => {
 	}
 	const closingBracket = `}`;
 	elements.push(closingBracket);
-	console.log(elements);
+	const paragraphs = elements.map(paragraph => createParagraph(paragraph));
+	console.log(paragraphs);
+	updateOutput(paragraphs);
 };

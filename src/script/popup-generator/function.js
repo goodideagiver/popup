@@ -81,7 +81,6 @@ export const getConfigObj = () => {
 	};
 	Object.keys(options).forEach(k => options[k] == '' && delete options[k]);
 	Object.keys(options).forEach(k => options[k] == undefined && delete options[k]);
-	outputElementHook.innerText = JSON.stringify(options).replace(/"([^"]+)":/g, '$1:');
 	return {
 		title,
 		options,
