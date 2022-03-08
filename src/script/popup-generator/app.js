@@ -8,6 +8,8 @@ import {
 
 import { elementsHook } from './hook.js';
 
+import { getInputElements } from './parseInput.js';
+
 validate();
 
 elementsHook.popupTitle.addEventListener('input', validate);
@@ -19,9 +21,8 @@ elementsHook.buttonContainerFold.addEventListener('click', () => {
 	elementsHook.buttonContainer.classList.toggle('hide-btn-container');
 });
 elementsHook.form.addEventListener('input', e => {
-	console.log(e.target.tagName);
 	if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
-		console.log(getConfigObj());
+		getInputElements(getConfigObj().title, getConfigObj().options);
 	}
 });
 elementsHook.form.addEventListener('click', e => {
