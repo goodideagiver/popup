@@ -30,6 +30,7 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
+	flex-wrap: wrap;
 	gap: 20px;
 	button {
 		cursor: pointer;
@@ -46,6 +47,7 @@ h1 {
 		}
 	}
 	form {
+		flex: 1 1 60%;
 		width: 98%;
 		display: flex;
 		flex-direction: row;
@@ -122,6 +124,7 @@ h1 {
 }
 
 .output-command {
+	flex: 1 1 300px;
 	font-size: 1.2rem;
 	font-family: 'Roboto', sans-serif;
 	min-width: 300px;
