@@ -5,7 +5,6 @@
   "name": "popup",
   "description": "This is my first ever OOP project.",
   "version": "1.0.0",
-  "main": "index.js",
   "dependencies": {
     "abortcontroller-polyfill": "^1.7.3",
     "acorn": "^8.7.0",
@@ -135,9 +134,18 @@
     "yaml": "^1.10.2",
     "weak-lru-cache": "^1.2.2"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build --no-scope-hoist"
   },
+  "targets":{
+    "main": {
+      "scopeHoist":"false"
+    }
+  },
+  "source":"src/script/popup.js",
+  "main":"dist/script/popup.js",
+  "scopeHoist":"no-scope-hoist",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/goodideagiver/popup.git"
