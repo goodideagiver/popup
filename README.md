@@ -1,7 +1,7 @@
 # popup.js
 This is my first ever OOP project.
 
-[Demo](https://goodideagiver.github.io/popup/)
+[Demo](https://goodideagiver.github.io/popup/) - work in progress
 
 popup.js is a JavaScript library for dealing with creating popups fast.
 
